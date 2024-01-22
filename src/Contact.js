@@ -18,7 +18,8 @@ function Contact() {
                 .post(url, {
                     name: document.querySelector("#name").value,
                     mail: document.querySelector("#mail").value,
-                    content: document.querySelector("#content").value
+                    content: document.querySelector("#content").value,
+                    source: "thelrallyphoto"
                 })
                 .then((response) => {
                     document.querySelector(".message-box").insertAdjacentHTML("beforeend", response.data);
@@ -36,10 +37,10 @@ function Contact() {
                 <input type="text" id="name" name="imie" className="contact-inputs" placeholder="Imię" />
                 <input type="text" id="mail" name="poczta" className="contact-inputs" placeholder="Adres e-mail" />
                 <textarea className="contact-textarea" id="content" placeholder="Treść wiadomości" name="tresc"></textarea>
+                <div className="message-box"></div>
                 <button type="submit" className="btn-link">Wyślij wiadomość</button>
             </form>
             <img src="/svg/loader.svg" alt="Wysyłanie..." className="loader disable" />
-            <div className="message-box"></div>
             <h2 className="direct-mail">Bezpośredni adres e-mail:</h2>
             <h4 className="center">pthel<span className="at"></span>o2<span className="dot"></span>pl</h4>
         </div>
