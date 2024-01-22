@@ -18,19 +18,6 @@ function App() {
         photo : 0,
     });
 
-    // function setFullPropsFunc(directory, fullphotos)  {
-    //     setfullscreenGallery(prevParams => ({
-    //         ...prevParams,
-    //         dir : directory,
-    //         photos : fullphotos
-    //     }))
-    // };
-
-    // let directory = "";
-    // let fullphotos = 0;
-    // let currentphoto = 0;
-    // let fullGalleryActive = false;
-
     function fullGalleryInit(fullGalleryActive, eventName, eventDate, directory, fullphotos, currentphoto, ) {
         setfullscreenGallery({
             active : fullGalleryActive,
