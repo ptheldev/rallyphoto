@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
 
@@ -12,12 +12,28 @@ function Gallery( {fullscreenGallery, fullGalleryInit}) {
 
     const [apiLoaded, setApiLoaded] = useState(false);
 
+    const fullGallerySet = useCallback((currentPhoto, galleries) => {
+        fullGalleryInit(true, galleries[currentGalleryArrayPosition].name, galleries[currentGalleryArrayPosition].date, galleries[currentGalleryArrayPosition].dir, galleries[currentGalleryArrayPosition].photos, currentPhoto);
+    }, [fullGalleryInit]);
+
+    const createPhotos = useCallback((galleries) => {
+        for(let i = 1 ; i <= galleries[currentGalleryArrayPosition].photos ; i++) {
+            thumbs.push(
+            <div className="gallery__thumbnail" key={i}>
+                <a href={`/galeries/${galleries[currentGalleryArrayPosition].dir}/${i}.jpg`} onClick={ (event) => {event.preventDefault();fullGallerySet(i, galleries);} } className="gallery__thumbnail-link">
+                    <img src={`/galeries/${galleries[currentGalleryArrayPosition].dir}/${i}.jpg`} alt={`${galleries[currentGalleryArrayPosition].name} - fot. Piotr Thel - Zdjęcie ${i}`} className="gallery__thumbnail-img" />
+                </a>
+            </div>
+            );
+        }
+    }, [fullGallerySet]);
+
     useEffect(() => {
       if(!apiLoaded) {
         thumbs = [];
         axios.get('/galleries.json')
           .then(function (response) {
-            selectGallery(response.data);
+            selectGallery(response.data, urlData.id);
             galleryHeader(response.data);
             createPhotos(response.data);
             setApiLoaded(true);
@@ -29,39 +45,23 @@ function Gallery( {fullscreenGallery, fullGalleryInit}) {
             document.querySelector(".loader").classList.add("disable");
           });
       }
-    }, [apiLoaded, selectGallery, createPhotos]);
+    }, [apiLoaded, urlData.id, createPhotos]);
 
-    function selectGallery(galleries) {
+    function selectGallery(galleries, galleryId) {
         galleries.map((item, index) => {
-            if(item.id === urlData.id) {
+            if(item.id === galleryId) {
                 currentGalleryArrayPosition = index;
             }
             return null;
         });
     }
-
+    
     function galleryHeader(galleries) {
         galleryHeaderContent = <div className="gallery__title">
         {galleries[currentGalleryArrayPosition].name}
         <span className="gallery__info">{galleries[currentGalleryArrayPosition].desc}</span>
         <span className="gallery__info">{galleries[currentGalleryArrayPosition].date}</span>
     </div>;
-    }
-
-    function createPhotos(galleries) {
-        for(let i = 1 ; i <= galleries[currentGalleryArrayPosition].photos ; i++) {
-            thumbs.push(
-            <div className="gallery__thumbnail" key={i}>
-                <a href={`/galeries/${galleries[currentGalleryArrayPosition].dir}/${i}.jpg`} onClick={ (event) => {event.preventDefault();fullGallerySet(i, galleries);} } className="gallery__thumbnail-link">
-                    <img src={`/galeries/${galleries[currentGalleryArrayPosition].dir}/${i}.jpg`} alt={`${galleries[currentGalleryArrayPosition].name} - fot. Piotr Thel - Zdjęcie ${i}`} className="gallery__thumbnail-img" />
-                </a>
-            </div>
-            );
-        }
-    }
-
-    function fullGallerySet(currentPhoto, galleries) {
-        fullGalleryInit(true, galleries[currentGalleryArrayPosition].name, galleries[currentGalleryArrayPosition].date, galleries[currentGalleryArrayPosition].dir, galleries[currentGalleryArrayPosition].photos, currentPhoto);
     }
 
     return (

@@ -425,6 +425,9 @@ h4 {
 .contact-alert-error {
     background-color: #e60000; 
 }
+.contact-loader {
+    margin-bottom: 15px;
+}
 
 .direct-mail {
     margin-bottom: 15px;
