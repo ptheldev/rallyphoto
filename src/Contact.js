@@ -13,7 +13,7 @@ function Contact() {
             if(document.querySelector(".message-box").firstElementChild) {
                 document.querySelector(".message-box").firstElementChild.remove();
             }
-            const url = 'https://piotrthel.vxm.pl/email.php?key=uTpags4RH';
+            const url = 'https://piotrthel.vxm.pl/mail/email.php?key=uTpags4RH';
             axios
                 .post(url, {
                     name: document.querySelector("#name").value,
