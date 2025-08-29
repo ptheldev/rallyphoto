@@ -1,5 +1,23 @@
 [
     {
+        "id": "16",
+        "name": "62. Rajd Barbórka",
+        "desc": "OS-y Bemowo i Polfa Tarchomin",
+        "date": "7 grudnia 2024",
+        "dir": "2024_Barborka",
+        "photos": 111,
+        "slides": [67, 94, 102]
+    },
+    {
+        "id": "15",
+        "name": "80. Rajd Polski",
+        "desc": "OS-y Olecko, Wieliczki, Świętajno, Czarne",
+        "date": "29 czerwca 2024",
+        "dir": "2024_Polski",
+        "photos": 111,
+        "slides": [51, 12, 76]
+    },
+    {
         "id": "14",
         "name": "61. Rajd Barbórka",
         "desc": "OS 1 i 2 Tor Słomczyn",
